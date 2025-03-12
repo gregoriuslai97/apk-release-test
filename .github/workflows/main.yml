@@ -1,4 +1,4 @@
-name: Send Release Email with APK
+name: Send Release Email
 
 on:
   release:
@@ -12,12 +12,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Download latest release asset
-      run: |
-        ASSET_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.assets[0].browser_download_url')
-        wget -O app-release.apk "$ASSET_URL"
-      shell: bash
-
     - name: Generate Email HTML
       run: |
         sed -e "s|{{TAG_NAME}}|${{ github.event.release.tag_name }}|g" \
@@ -26,7 +20,7 @@ jobs:
             -e "s|{{GITHUB_RELEASE_URL}}|${{ github.event.release.html_url }}|g" \
             release_email_template.html > email.html
 
-    - name: Send email with attachment
+    - name: Send email
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.office365.com
@@ -38,5 +32,4 @@ jobs:
         from: "${{ secrets.OUTLOOK_USERNAME }}"
         content_type: text/html
         content_transfer_encoding: quoted-printable
-        attachments: "app-release.apk"
         html_body: file://email.html
