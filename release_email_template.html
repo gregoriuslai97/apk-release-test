@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>New Release</title>
+  <style>
+    body { font-family: Arial, sans-serif; color: #333; line-height: 1.5; }
+    .container { padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; border-radius: 10px; }
+    h2 { color: #0078D4; }
+    .changelog { background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; }
+    .btn { display: inline-block; padding: 10px 15px; margin-top: 10px; background: #0078D4; color: #fff; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎉 New Release: <b>{{TAG_NAME}}</b></h2>
+    <p><b>Repository:</b> {{REPO_NAME}}</p>
+    <p><b>Version:</b> {{TAG_NAME}}</p>
+    <p><b>Changelog:</b></p>
+    <div class="changelog">{{CHANGELOG}}</div>
+    <p><a href="{{GITHUB_RELEASE_URL}}" class="btn">🔗 View on GitHub</a></p>
+  </div>
+</body>
+</html>
