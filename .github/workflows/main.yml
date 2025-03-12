@@ -12,13 +12,13 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Generate Email HTML
-      run: |
-        sed -e "s|{{TAG_NAME}}|${{ github.event.release.tag_name }}|g" \
-            -e "s|{{REPO_NAME}}|${{ github.repository }}|g" \
-            -e "s|{{CHANGELOG}}|${{ github.event.release.body }}|g" \
-            -e "s|{{GITHUB_RELEASE_URL}}|${{ github.event.release.html_url }}|g" \
-            release_email_template.html > email.html
+    # - name: Generate Email HTML
+    #   run: |
+    #     sed -e "s|{{TAG_NAME}}|${{ github.event.release.tag_name }}|g" \
+    #         -e "s|{{REPO_NAME}}|${{ github.repository }}|g" \
+    #         -e "s|{{CHANGELOG}}|${{ github.event.release.body }}|g" \
+    #         -e "s|{{GITHUB_RELEASE_URL}}|${{ github.event.release.html_url }}|g" \
+    #         release_email_template.html > email.html
 
     - name: Send email
       uses: dawidd6/action-send-mail@v3
@@ -31,4 +31,28 @@ jobs:
         to: "gregorius.lai@gmail.com, gregorius.lai@sinarmas-agri.com"
         content_type: text/html
         content_transfer_encoding: quoted-printable
-        html_body: file://email.html
+        html_body: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>New Release</title>
+            <style>
+              body { font-family: Arial, sans-serif; color: #333; line-height: 1.5; }
+              .container { padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; border-radius: 10px; }
+              h2 { color: #0078D4; }
+              .changelog { background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; }
+              .btn { display: inline-block; padding: 10px 15px; margin-top: 10px; background: #0078D4; color: #fff; text-decoration: none; border-radius: 5px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2>🎉 New Release: <b>{{TAG_NAME}}</b></h2>
+              <p><b>Repository:</b> {{REPO_NAME}}</p>
+              <p><b>Version:</b> {{TAG_NAME}}</p>
+              <p><b>Changelog:</b></p>
+              <div class="changelog">{{CHANGELOG}}</div>
+              <p><a href="{{GITHUB_RELEASE_URL}}" class="btn">🔗 View on GitHub</a></p>
+            </div>
+          </body>
+          </html>
