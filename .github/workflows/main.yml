@@ -28,7 +28,7 @@ jobs:
         username: ${{ secrets.OUTLOOK_USERNAME }}
         password: ${{ secrets.OUTLOOK_PASSWORD }}
         subject: "🚀 New Release: ${{ github.event.release.tag_name }}"
-        to: "gregorius.lai@gmail.com"
+        to: "gregorius.lai@gmail.com, gregorius.lai@sinarmas-agri.com"
         content_type: text/html
         content_transfer_encoding: quoted-printable
         html_body: file://email.html
