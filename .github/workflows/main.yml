@@ -21,8 +21,12 @@ jobs:
         from: "${{ secrets.OUTLOOK_USERNAME }}"
         content_type: text/html
         body: |
-          <h2>🎉 New Release: <b>${{ github.event.release.tag_name }}</b></h2>
-          <p><b>Repository:</b> ${{ github.repository }}</p>
-          <p><b>Version:</b> ${{ github.event.release.tag_name }}</p>
-          <p><b>Changelog:</b> ${{ github.event.release.body }}</p>
-          <p><b>Download:</b> <a href="${{ github.event.release.html_url }}">Click here</a></p>
+            <html>
+            <body style="font-family: Arial, sans-serif; color: #333;">
+              <h2>🎉 New Release: <b>${{ github.event.release.tag_name }}</b></h2>
+              <p><b>Repository:</b> ${{ github.repository }}</p>
+              <p><b>Version:</b> ${{ github.event.release.tag_name }}</p>
+              <p><b>Changelog:</b> ${{ github.event.release.body }}</p>
+              <p><b>Download:</b> <a href="${{ github.event.release.html_url }}">Click here</a></p>
+            </body>
+            </html>
