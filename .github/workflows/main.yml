@@ -48,12 +48,13 @@ jobs:
           </head>
           <body>
             <div class="container">
-              <h2>🎉 New Release: <b>{{TAG_NAME}}</b></h2>
-              <p><b>Repository:</b> {{REPO_NAME}}</p>
-              <p><b>Version:</b> {{TAG_NAME}}</p>
+              <h2>🎉 New Release: <b>${{ github.event.release.tag_name }}</b></h2>
+              <p><b>Repository:</b> ${{ github.repository }}</p>
+              <p><b>Version:</b> ${{ github.event.release.tag_name }}</p>
               <p><b>Changelog:</b></p>
-              <div class="changelog">{{CHANGELOG}}</div>
-              <p><a href="{{GITHUB_RELEASE_URL}}" class="btn">🔗 View on GitHub</a></p>
+              <div class="changelog">${{ github.event.release.body }}</div>
+              <p><b>Download APK:</b> 📦 Attached</p>
+              <p><a href="${{ github.event.release.html_url }}" class="btn">🔗 View on GitHub</a></p>
             </div>
           </body>
           </html>
